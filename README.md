@@ -26,19 +26,19 @@ It visualizes revenue, profit, and category performance using **DAX-driven KPIs*
 - **Cards:** Total Sales, Total Profit, ROI, Profit Margin  
 - **Charts:** Line (Monthly Trend), Bar (Category Sales), Donut (Segment Sales), Map (Region Sales)  
 - **Slicers:** Region, Category, Year  
-🖼️ `screenshots/Page1_SalesOverview.png`
+🖼️ `/imgae/Seles_Dashboard.png`
 
 ### 2️⃣ Product Insights
 - **Bar:** Sub-Category vs Sales  
 - **Tree Map:** Product Name vs Sales  
 - **Matrix:** Product × Region → Sales & Profit  
 - **KPI:** Top Product (Dynamic via DAX)  
-🖼️ `screenshots/Page2_ProductInsights.png`
+🖼️ `/imgae/product_Insights.png `
 
 ### 3️⃣ Forecasting
 - **Line Chart:** Sales Forecast (6 Months, 95% CI)  
 - **Decomposition Tree:** Total Sales → Region → Category → Sub-Category  
-🖼️ `screenshots/Page3_Forecasting.png`
+🖼️ `/imgae/Forecasting.png`
 
 ---
 
