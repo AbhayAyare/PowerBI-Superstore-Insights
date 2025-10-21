@@ -1,0 +1,129 @@
+// ==========================
+// 📊 Superstore Sales Performance Dashboard
+// Author: Abhay Ayare
+// File: DAX-Measures.txt
+// Description: All key measures used in the Power BI Dashboard
+// ==========================
+
+
+// ==========================
+// 🏷️ 1. Basic KPIs
+// ==========================
+
+Total Sales =
+SUM('Sample - Superstore'[Sales])
+
+Total Profit =
+SUM('Sample - Superstore'[Profit])
+
+Total Quantity =
+SUM('Sample - Superstore'[Quantity])
+
+Total Discount =
+SUM('Sample - Superstore'[Discount])
+
+
+// ==========================
+// 💰 2. Profitability Metrics
+// ==========================
+
+Profit Margin =
+DIVIDE([Total Profit], [Total Sales], 0)
+
+ROI =
+DIVIDE([Total Profit], [Total Discount], 0)
+
+
+// ==========================
+// 📅 3. Time Intelligence Measures
+// ==========================
+
+YTD Sales =
+TOTALYTD(
+    [Total Sales],
+    'DateTable'[Date]
+)
+
+YoY Growth =
+VAR PrevYearSales =
+    CALCULATE(
+        [YTD Sales],
+        SAMEPERIODLASTYEAR('DateTable'[Date])
+    )
+RETURN
+DIVIDE([YTD Sales] - PrevYearSales, PrevYearSales, 0)
+
+
+// ==========================
+// 🧩 4. Product Performance
+// ==========================
+
+Top Product =
+CALCULATE(
+    SELECTEDVALUE('Sample - Superstore'[Product Name]),
+    FILTER(
+        'Sample - Superstore',
+        [Total Sales] = 
+        CALCULATE(
+            MAXX(
+                VALUES('Sample - Superstore'[Product Name]),
+                [Total Sales]
+            )
+        )
+    )
+)
+
+Top Product Sales =
+CALCULATE(
+    [Total Sales],
+    'Sample - Superstore'[Product Name] = [Top Product]
+)
+
+Top Product Profit =
+CALCULATE(
+    [Total Profit],
+    'Sample - Superstore'[Product Name] = [Top Product]
+)
+
+
+// ==========================
+// 🔮 5. Forecast Support Measure
+// ==========================
+
+Moving Average (3M) =
+AVERAGEX(
+    DATESINPERIOD(
+        'DateTable'[Date],
+        MAX('DateTable'[Date]),
+        -3,
+        MONTH
+    ),
+    [Total Sales]
+)
+
+
+// ==========================
+// 🧠 6. Dynamic Title & UX Enhancements
+// ==========================
+
+Dynamic Title =
+"Sales Dashboard for " &
+SELECTEDVALUE('Sample - Superstore'[Region], "All Regions")
+
+
+// ==========================
+// ⚙️ 7. What-If Parameter Example (Optional)
+// ==========================
+
+// Discount Sensitivity Parameter created from Modeling tab
+// Name: Discount Change %
+// Linked Table: 'Discount Change %'
+
+// Simulated Profit after Discount Adjustment
+Simulated Profit =
+[Total Profit] * (1 - 'Discount Change %'[Discount Change % Value])
+
+
+// ==========================
+// 🧾 End of File
+// ==========================
